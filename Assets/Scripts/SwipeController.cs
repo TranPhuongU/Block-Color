@@ -7,7 +7,7 @@ using UnityEngine.UI;
 public class SwipeController : MonoBehaviour, IEndDragHandler
 {
     [SerializeField] int maxPage;
-    int currentPage;
+    public int currentPage {  get; private set; }
     Vector3 targetPos;
     [SerializeField] Vector3 pageStep;
     [SerializeField] RectTransform levelPagesRect;
@@ -17,8 +17,6 @@ public class SwipeController : MonoBehaviour, IEndDragHandler
 
     [SerializeField] private Image[] barImage;
     [SerializeField] private Sprite barClosed, barOpen;
-
-    [SerializeField] private RectTransform canvasRect;
 
     private Vector3 startTransform;
 
@@ -55,7 +53,7 @@ public class SwipeController : MonoBehaviour, IEndDragHandler
 
     void MovePage()
     {
-        levelPagesRect.LeanMoveLocal(targetPos, tweenTime).setEase(tweenType);
+        levelPagesRect.LeanMoveLocal(targetPos, tweenTime).setEase(tweenType).setIgnoreTimeScale(true);
 
         UpdateBar();
     }
@@ -93,4 +91,5 @@ public class SwipeController : MonoBehaviour, IEndDragHandler
 
         barImage[currentPage - 1].sprite = barOpen;
     }
+
 }

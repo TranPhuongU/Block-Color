@@ -7,7 +7,8 @@ public enum PieceColor
     Blue,
     Red,
     Yellow,
-    Green
+    Green,
+    None
 
 }
 public class Piece : MonoBehaviour
@@ -22,6 +23,8 @@ public class Piece : MonoBehaviour
     public int y;
 
     public Color originalColor {  get; set; }
+
+    private Coroutine animRoutine;
     private void Awake()
     {
         sprite = GetComponent<SpriteRenderer>();
@@ -33,7 +36,6 @@ public class Piece : MonoBehaviour
         this.x = x;
         this.y = y;
     }
-    private Coroutine animRoutine;
     public void SetupColor(PieceColor pieceColor)
     {
         color = pieceColor;
@@ -94,6 +96,7 @@ public class Piece : MonoBehaviour
             case PieceColor.Red: return spriteColors[1];
             case PieceColor.Yellow: return spriteColors[2];
             case PieceColor.Green: return spriteColors[3];
+            case PieceColor.None: return spriteColors[4];
             default: return Color.white;
         }
     }

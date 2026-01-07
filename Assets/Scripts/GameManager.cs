@@ -52,6 +52,7 @@ public class GameManager : MonoBehaviour
 
     public void GameStateCallBack(GameState _gameState)
     {
+
         gameState = _gameState;
         onGameStateCallBack?.Invoke(gameState);
     }

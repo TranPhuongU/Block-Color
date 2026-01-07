@@ -20,6 +20,11 @@ public class SoundManager : MonoBehaviour
 
     [SerializeField] private AudioSource buttonPressSound;
 
+    [SerializeField] private Slider musicSlider;
+    [SerializeField] private Slider sfxSlider;
+
+    [SerializeField] private AudioMixer audioMixer;
+
 
     private void Awake()
     {
@@ -28,6 +33,8 @@ public class SoundManager : MonoBehaviour
     private void Start()
     {
         PlayRandomMusic();
+        LoadVolume();
+
     }
 
     public void PlayRandomSound(AudioSource[] audioSource)
@@ -82,4 +89,47 @@ public class SoundManager : MonoBehaviour
         buttonPressSound.Play();
     }
 
+    public void SetMusicVolume()
+    {
+        if (musicSlider == null) return;
+
+        float value = musicSlider.value;
+        float dB;
+
+        dB = Mathf.Log10(value) * 20f;
+
+        audioMixer.SetFloat("Music", dB);
+        PlayerPrefs.SetFloat("musicVolume", value);
+    }
+
+
+    public void SetSFXVolume()
+    {
+        if (sfxSlider == null) return;
+
+        float value = sfxSlider.value; // 0..1
+        float dB;
+
+        if (value <= 0.0001f)
+            dB = -80f;
+        else
+            dB = Mathf.Log10(value) * 20f;
+
+        audioMixer.SetFloat("Sfx", dB);
+        PlayerPrefs.SetFloat("sfxVolume", value);
+    }
+
+
+    private void LoadVolume()
+    {
+        if (musicSlider == null || sfxSlider == null)
+            return;
+
+        musicSlider.value = PlayerPrefs.GetFloat("musicVolume", .5f);
+        sfxSlider.value = PlayerPrefs.GetFloat("sfxVolume", .5f);
+
+        SetMusicVolume();
+        SetSFXVolume();
+
+    }
 }

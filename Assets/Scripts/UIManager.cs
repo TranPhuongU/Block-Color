@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -31,10 +32,12 @@ public class UIManager : MonoBehaviour
         else
             Destroy(gameObject);
 
+
         RandomBackground();
     }
     IEnumerator Start()
     {
+        GameManager.instance.onGameStateCallBack += EndGamePanelActive;
 
         yield return null;
         UpdateTargetColorText();
@@ -42,16 +45,25 @@ public class UIManager : MonoBehaviour
 
         SetupPanel(GameManager.instance.createModeSO.createMode);
     }
-
-    public void EndGamePanelActive(bool win)
+    private void OnDestroy()
     {
+        GameManager.instance.onGameStateCallBack -= EndGamePanelActive;
+
+    }
+
+    public void EndGamePanelActive(GameState gameState)
+    {
+        if (gameState == GameState.Intro || gameState == GameState.Gameplay)
+            return;
+
+
         endGamePanel.SetActive(true);
 
         UIWindowAnimator endGameUIController = endGamePanel.GetComponentInChildren<UIWindowAnimator>();
 
         endGameUIController.Play();
 
-        if (win)
+        if (gameState == GameState.Win)
             endGameText.text = "BAN LA NHAT!";
         else
             endGameText.text = "KHONG BIET CHOI THI CHIU KHO DOC TUTORIAL DI!";
@@ -87,7 +99,7 @@ public class UIManager : MonoBehaviour
         if (targetColorText != null)
         {
             Color color = GetColorFromPiece(GameManager.instance.board.targetColor);
-            string hex = ColorUtility.ToHtmlStringRGB(color);
+            string hex = UnityEngine.ColorUtility.ToHtmlStringRGB(color);
 
             string colorName = GameManager.instance.board.targetColor.ToString();
             colorName = char.ToUpper(colorName[0]) + colorName.Substring(1).ToLower();

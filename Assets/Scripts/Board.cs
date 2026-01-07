@@ -180,12 +180,7 @@ public class Board : MonoBehaviour
     }
 
 
-    public IEnumerator ReplaceColorCoroutine(
-    int startX,
-    int startY,
-    PieceColor sourceColor,
-    PieceColor resolveColor
-)
+    public IEnumerator ReplaceColorCoroutine(int startX, int startY, PieceColor sourceColor, PieceColor resolveColor)
     {
         isResolving = true;
 
@@ -220,9 +215,10 @@ public class Board : MonoBehaviour
                 if (piece.check)
                     continue;
 
-                if (piece.color != sourceColor)
+                if (piece.color != sourceColor )
                     continue;
 
+   
                 piece.check = true;
                 piece.SetupColor(resolveColor);
 
@@ -252,6 +248,9 @@ public class Board : MonoBehaviour
         {
             for (int j = 0; j < height; j++)
             {
+                if (allPiece[i, j].color == PieceColor.None)
+                    continue;
+
                 if (allPiece[i, j].color != targetColor)
                 {
                     return false;
@@ -300,7 +299,7 @@ public class Board : MonoBehaviour
 
             SoundManager.instance.PlayWinSound();
 
-            UIManager.instance.EndGamePanelActive(true);
+            //UIManager.instance.EndGamePanelActive(true);
 
             return;
         }
@@ -311,7 +310,7 @@ public class Board : MonoBehaviour
 
             SoundManager.instance.PlayLoseSound();
 
-            UIManager.instance.EndGamePanelActive(false);
+            //UIManager.instance.EndGamePanelActive(false);
         }
     }
 
@@ -321,6 +320,14 @@ public class Board : MonoBehaviour
 
         if (piece.color == GameManager.colorSelect)
             return;
+
+        if (!GameManager.instance.createModeSO.createMode)
+        {
+            if (piece.color == PieceColor.None)
+            {
+                return;
+            }
+        }
 
         StartCoroutine(ReplaceColorRoutine(x, y));
     }

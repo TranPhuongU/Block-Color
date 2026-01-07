@@ -8,10 +8,7 @@ using UnityEngine.UI;
 public class SettingController : MonoBehaviour
 {
 
-    [SerializeField] private Slider musicSlider;
-    [SerializeField] private Slider sfxSlider;
-
-    [SerializeField] private AudioMixer audioMixer;
+    
 
     [SerializeField] private GameObject fogFX;
 
@@ -24,57 +21,13 @@ public class SettingController : MonoBehaviour
 
     private void Start()
     {
-        LoadVolume();
-
         if(mainMenu)
             return;
 
         fogState = PlayerPrefs.GetInt("FogState", 1) == 1; // default ON
         ApplyFogState();
     }
-    public void SetMusicVolume()
-    {
-        if (musicSlider == null) return;
-
-        float value = musicSlider.value;
-        float dB;
-
-        dB = Mathf.Log10(value) * 20f;
-
-        audioMixer.SetFloat("Music", dB);
-        PlayerPrefs.SetFloat("musicVolume", value);
-    }
-
-
-    public void SetSFXVolume()
-    {
-        if (sfxSlider == null) return;
-
-        float value = sfxSlider.value; // 0..1
-        float dB;
-
-        if (value <= 0.0001f)
-            dB = -80f;
-        else
-            dB = Mathf.Log10(value) * 20f;
-
-        audioMixer.SetFloat("Sfx", dB);
-        PlayerPrefs.SetFloat("sfxVolume", value);
-    }
-
-
-    private void LoadVolume()
-    {
-        if (musicSlider == null || sfxSlider == null)
-            return;
-
-        musicSlider.value = PlayerPrefs.GetFloat("musicVolume", .5f);
-        sfxSlider.value = PlayerPrefs.GetFloat("sfxVolume", .5f);
-
-        SetMusicVolume();
-        SetSFXVolume();
-
-    }
+   
 
     public void MainMenuButton()
     {

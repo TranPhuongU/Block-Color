@@ -11,8 +11,6 @@ public class MenuManager : MonoBehaviour
     [SerializeField] private CreateModeSO createModeSO;
     public LevelDatabaseSO database;
 
-    [SerializeField] private GameObject levelPanel;
-
     private bool isInitialized = false; // 👈 CHỈ THÊM DÒNG NÀY
     private void Awake()
     {
@@ -21,8 +19,6 @@ public class MenuManager : MonoBehaviour
     }
     public void ActiveLevelPanel()
     {
-        levelPanel.SetActive(true);
-
         if (isInitialized)
             return; // 👈 nếu đã spawn rồi thì dừng ở đây
 
@@ -49,6 +45,7 @@ public class MenuManager : MonoBehaviour
             {
                 createModeSO.createMode = false;
                 SelectedLevel.levelID = levelIndex;
+                SoundManager.instance.PlayButtonSound();
                 SceneManager.LoadScene("Gameplay");
             });
         }
