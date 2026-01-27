@@ -16,9 +16,10 @@ public class Piece : MonoBehaviour
     public PieceColor color;
 
     public Color[] spriteColors;
+    [SerializeField] private GameObject xSprite;
     public SpriteRenderer sprite {  get;  set; }
 
-    public bool check;
+    public bool check { get; set; }
     public int x;
     public int y;
 
@@ -28,6 +29,8 @@ public class Piece : MonoBehaviour
     private void Awake()
     {
         sprite = GetComponent<SpriteRenderer>();
+
+        xSprite.SetActive(false);
 
     }
 
@@ -40,7 +43,10 @@ public class Piece : MonoBehaviour
     {
         color = pieceColor;
 
+        xSprite.SetActive(color == PieceColor.None);
+
         Color c = ConvertToUnityColor(pieceColor);
+
         sprite.color = new Color(c.r, c.g, c.b, 0f);
 
         // reset scale nhỏ

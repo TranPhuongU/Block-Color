@@ -36,7 +36,15 @@ public class SoundManager : MonoBehaviour
         LoadVolume();
 
     }
+    private void Update()
+    {
 
+        if (Input.GetKeyDown(KeyCode.D))
+        {
+            PlayerPrefs.DeleteAll();
+            Debug.Log("Deleted PlayerPrefs");
+        }
+    }
     public void PlayRandomSound(AudioSource[] audioSource)
     {
         if (audioSource.Length == 0) return;
@@ -125,8 +133,8 @@ public class SoundManager : MonoBehaviour
         if (musicSlider == null || sfxSlider == null)
             return;
 
-        musicSlider.value = PlayerPrefs.GetFloat("musicVolume", .5f);
-        sfxSlider.value = PlayerPrefs.GetFloat("sfxVolume", .5f);
+        musicSlider.value = PlayerPrefs.GetFloat("musicVolume", .7f);
+        sfxSlider.value = PlayerPrefs.GetFloat("sfxVolume", .7f);
 
         SetMusicVolume();
         SetSFXVolume();

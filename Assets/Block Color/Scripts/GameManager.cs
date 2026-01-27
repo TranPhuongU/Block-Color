@@ -127,10 +127,10 @@ public class GameManager : MonoBehaviour
             }
         }
 
-        string folderPath = "Assets/Data/Levels";
+        string folderPath = "Assets/Block Color/Data/Levels";
         if (!AssetDatabase.IsValidFolder(folderPath))
         {
-            AssetDatabase.CreateFolder("Assets/Data/Levels", "Levels");
+            AssetDatabase.CreateFolder("Assets/Block Color/Data/Levels", "Levels");
         }
 
         string assetPath = $"{folderPath}/Level_{levelName}.asset";

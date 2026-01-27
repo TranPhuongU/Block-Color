@@ -17,7 +17,7 @@ public class UIDOManger : MonoBehaviour
 {
     [SerializeField] private SwipeController swipeController;
     [SerializeField] private Image introImage;
-    [SerializeField] private RectTransform playButton;
+    [SerializeField] private RectTransform levelsButton;
     [SerializeField] private RectTransform tutorialButton;
     [SerializeField] private RectTransform settingButton;
 
@@ -57,7 +57,7 @@ public class UIDOManger : MonoBehaviour
 
         if (isMenu)
         {
-            playButton.DOAnchorPosY(0, .5f);
+            levelsButton.DOAnchorPosY(0, .5f);
             tutorialButton.DOAnchorPosY(0, .6f);
             settingButton.DOAnchorPosY(0, .7f);
         }
@@ -94,8 +94,8 @@ public class UIDOManger : MonoBehaviour
         }
         else
         {
-            playButton.DOAnchorPosX(-1500, tweenDuration).SetUpdate(true);
-            tutorialButton.DOAnchorPosX(1500, tweenDuration).SetUpdate(true);
+            levelsButton.DOAnchorPosY(-500, tweenDuration + .2f).SetUpdate(true);
+            tutorialButton.DOAnchorPosY(-500, tweenDuration).SetUpdate(true);
         }
         await settingPanelRect.DOAnchorPosY(middlePosY, tweenDuration).SetUpdate(true).AsyncWaitForCompletion();
 
@@ -113,8 +113,8 @@ public class UIDOManger : MonoBehaviour
         }
         else
         {
-            playButton.DOAnchorPosX(0, .3f).SetUpdate(true);
-            tutorialButton.DOAnchorPosX(0, .3f).SetUpdate(true);
+            levelsButton.DOAnchorPosY(0, .4f).SetUpdate(true);
+            tutorialButton.DOAnchorPosY(0, .3f).SetUpdate(true);
         }
             
     }
@@ -160,8 +160,8 @@ public class UIDOManger : MonoBehaviour
 
         if (isMenu)
         {
-            playButton.DOAnchorPosX(0, .3f).SetUpdate(true);
-            settingButton.DOAnchorPosX(0, .3f).SetUpdate(true);
+            levelsButton.DOAnchorPosY(0, .3f).SetUpdate(true);
+            settingButton.DOAnchorPosY(0, .3f).SetUpdate(true);
         }
 
     }
@@ -171,8 +171,8 @@ public class UIDOManger : MonoBehaviour
         closeTutorialButton.interactable = false;
         if (isMenu)
         {
-            playButton.DOAnchorPosX(1500, tweenDuration).SetUpdate(true);
-            settingButton.DOAnchorPosX(-1500, tweenDuration).SetUpdate(true);
+            levelsButton.DOAnchorPosY(-500, tweenDuration).SetUpdate(true);
+            settingButton.DOAnchorPosY(-500, tweenDuration).SetUpdate(true);
         }
 
         canvasGroup.DOFade(1, tweenTutorialDuration).SetUpdate(true);
@@ -230,8 +230,8 @@ public class UIDOManger : MonoBehaviour
     void LevelIntro()
     {
 
-        tutorialButton.DOAnchorPosX(1500, tweenDuration).SetUpdate(true);
-        settingButton.DOAnchorPosX(-1500, tweenDuration).SetUpdate(true);
+        tutorialButton.DOAnchorPosY(-500, tweenDuration).SetUpdate(true);
+        settingButton.DOAnchorPosY(-500, tweenDuration + .2f).SetUpdate(true);
 
         canvasGroup.DOFade(1, tweenDuration).SetUpdate(true);
         levelPanelRect.GetComponent<CanvasGroup>().DOFade(1, tweenDuration).SetUpdate(true);
@@ -243,8 +243,8 @@ public class UIDOManger : MonoBehaviour
         canvasGroup.DOFade(0, tweenDuration).SetUpdate(true);
         levelPanelRect.GetComponent<CanvasGroup>().DOFade(0, tweenDuration).SetUpdate(true);
         await levelPanelRect.DOScale(new Vector3(0, 0, 0), tweenDuration).SetUpdate(true).AsyncWaitForCompletion(); 
-        tutorialButton.DOAnchorPosX(0, .3f).SetUpdate(true);
-        settingButton.DOAnchorPosX(0, .3f).SetUpdate(true);
+        tutorialButton.DOAnchorPosY(0, .3f).SetUpdate(true);
+        settingButton.DOAnchorPosY(0, .4f).SetUpdate(true);
     }
 
 }

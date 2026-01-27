@@ -38,7 +38,10 @@ public class SelectColor : MonoBehaviour, IPointerClickHandler
         }
 
         activeFrame.SetActive(true);
-        arrow.SetActive(true);
+        if(arrow != null)
+        {
+            arrow.SetActive(true);
+        }
 
         GameManager.instance.currentSelect = this;
         GameManager.colorSelect = colorSelect;

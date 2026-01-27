@@ -64,9 +64,9 @@ public class UIManager : MonoBehaviour
         endGameUIController.Play();
 
         if (gameState == GameState.Win)
-            endGameText.text = "BAN LA NHAT!";
+            endGameText.text = "WIN";
         else
-            endGameText.text = "KHONG BIET CHOI THI CHIU KHO DOC TUTORIAL DI!";
+            endGameText.text = "LOSE!";
     }
     public void SettingPanelActive()
     {

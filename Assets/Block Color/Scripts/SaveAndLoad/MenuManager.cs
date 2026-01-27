@@ -1,14 +1,18 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using DG.Tweening;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class MenuManager : MonoBehaviour
 {
     [SerializeField] private GameObject levelButtonPrefab;
     [SerializeField] private Transform buttonContainer;
+    [SerializeField] private Image darkScreenFader;
 
     [SerializeField] private CreateModeSO createModeSO;
+
+    [SerializeField] private Ease ease;
+
     public LevelDatabaseSO database;
 
     private bool isInitialized = false; // 👈 CHỈ THÊM DÒNG NÀY
@@ -46,7 +50,11 @@ public class MenuManager : MonoBehaviour
                 createModeSO.createMode = false;
                 SelectedLevel.levelID = levelIndex;
                 SoundManager.instance.PlayButtonSound();
-                SceneManager.LoadScene("Gameplay");
+
+                darkScreenFader.DOFade(1f, 1f).SetEase(ease).SetUpdate(true).OnComplete(() =>
+                {
+                    SceneManager.LoadScene("Gameplay");
+                });
             });
         }
     }
